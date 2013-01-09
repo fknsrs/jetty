@@ -1,0 +1,24 @@
+{
+  "name": "jetty",
+  "version": "0.0.0",
+  "description": "TTY, you so fly",
+  "main": "index.js",
+  "dependencies": {
+    "steez": "~0.4.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/deoxxa/jetty.git"
+  },
+  "keywords": [
+    "tty",
+    "ansi",
+    "control",
+    "cursor",
+    "terminal",
+    "console",
+    "ui"
+  ],
+  "author": "Conrad Pankoff <deoxxa@fknsrs.biz> (http://www.fknsrs.biz/)",
+  "license": "BSD"
+}
