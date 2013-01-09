@@ -18,7 +18,7 @@ Available via [npm](http://npmjs.org/):
 
 Or via git:
 
-> $ git clone git://github.com/deoxxa/jetty.git  
+> $ git clone git://github.com/fknsrs/jetty.git  
 > $ cd jetty  
 > $ npm install  
 
