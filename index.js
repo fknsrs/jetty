@@ -10,7 +10,7 @@ util.inherits(Jetty, Steez);
 
 Jetty.prototype.command = function command(char, args) {
   this.write(esc);
-  this.write(args.join(";"));
+  this.write((args || []).join(";"));
   this.write(char);
 
   return this;
@@ -27,3 +27,6 @@ Jetty.prototype.lineDown = function lineDown(n) { return this.command("F", [n]);
 Jetty.prototype.moveTo = function moveTo(x, y) { return this.command("H", [y, x]); };
 
 Jetty.prototype.clear = function clear() { return this.command("J", [2]); };
+
+Jetty.prototype.hideCursor = function hideCursor() { return this.command("?25l"); };
+Jetty.prototype.showCursor = function hideCursor() { return this.command("?25h"); };

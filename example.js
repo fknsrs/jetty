@@ -5,7 +5,7 @@ var Jetty = require("./index");
 var jetty = new Jetty();
 jetty.pipe(process.stdout);
 
-jetty.clear();
+jetty.clear().hideCursor();
 
 var i = 0;
 setInterval(function() {
