@@ -1,6 +1,6 @@
 {
   "name": "jetty",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "TTY, you so fly",
   "main": "index.js",
   "dependencies": {
