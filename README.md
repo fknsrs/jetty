@@ -50,7 +50,7 @@ setInterval(function() {
 
   // Yep, all the Jetty methods that can be are chainable. `write` is not. It's
   // also not a Jetty method, but rather inherited from [Steez](https://github.com/deoxxa/steez).
-  jetty.moveTo(x, y).write(".");
+  jetty.moveTo([y, x]).write(".");
 }, 5);
 ```
 
