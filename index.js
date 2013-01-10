@@ -1,15 +1,15 @@
 var Steez = require("steez"),
     util = require("util");
 
-var esc = Buffer([0x1b, 0x5b]);
+var csi = Buffer([0x1b, 0x5b]);
 
 var Jetty = module.exports = function Jetty() {
   Steez.call(this);
 };
 util.inherits(Jetty, Steez);
 
-Jetty.prototype.command = function command(char, args) {
-  this.write(esc);
+Jetty.prototype.seq = function(char, args) {
+  this.write(csi);
   if (args && args.length) {
     this.write(args.join(";"));
   }
@@ -18,18 +18,25 @@ Jetty.prototype.command = function command(char, args) {
   return this;
 };
 
-Jetty.prototype.moveUp    = function moveUp(n)    { return this.command("A", [n]); };
-Jetty.prototype.moveDown  = function moveDown(n)  { return this.command("B", [n]); };
-Jetty.prototype.moveLeft  = function moveLeft(n)  { return this.command("C", [n]); };
-Jetty.prototype.moveRight = function moveRight(n) { return this.command("D", [n]); };
+codes = [
+  {name: "moveUp",      code:"A"},
+  {name: "moveDown",    code:"B"},
+  {name: "moveLeft",    code:"C"},
+  {name: "moveRight",   code:"D"},
+  {name: "lineUp",      code:"E"},
+  {name: "lineDown",    code:"F"},
+  {name: "moveTo",      code:"H",   map: function(e) { return e +  1; }},
+  {name: "clear",       code:"J",   map: function(e) { return e || 2; }},
+  {name: "clearLine",   code:"K",   map: function(e) { return e || 1; }},
+  {name: "save",        code:"S"},
+  {name: "restore",     code:"U"},
+  {name: "hide",        code:"?25l"},
+  {name: "show",        code:"?25h"}
+];
 
-Jetty.prototype.lineUp   = function lineUp(n)   { return this.command("E", [n]); };
-Jetty.prototype.lineDown = function lineDown(n) { return this.command("F", [n]); };
-
-// coords = [y,x]
-Jetty.prototype.moveTo = function moveTo(coords) { return this.command("H", [coords[0]+1, coords[1]+1]); };
-
-Jetty.prototype.clear = function clear() { return this.command("J", [2]); };
-
-Jetty.prototype.hideCursor = function hideCursor() { return this.command("?25l"); };
-Jetty.prototype.showCursor = function showCursor() { return this.command("?25h"); };
+codes.map(function(code) {
+  Jetty.prototype[code.name] = function(n) {
+    if (!util.isArray(n)) { n = [n]; }
+    return this.seq(code.code, code.map ? n.map(code.map) : n);
+  };
+});
