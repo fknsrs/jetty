@@ -10,7 +10,9 @@ util.inherits(Jetty, Steez);
 
 Jetty.prototype.command = function command(char, args) {
   this.write(esc);
-  this.write((args || []).join(";"));
+  if (args && args.length) {
+    this.write(args.join(";"));
+  }
   this.write(char);
 
   return this;
