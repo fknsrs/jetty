@@ -26,9 +26,10 @@ Jetty.prototype.moveRight = function moveRight(n) { return this.command("D", [n]
 Jetty.prototype.lineUp   = function lineUp(n)   { return this.command("E", [n]); };
 Jetty.prototype.lineDown = function lineDown(n) { return this.command("F", [n]); };
 
-Jetty.prototype.moveTo = function moveTo(x, y) { return this.command("H", [y, x]); };
+// coords = [y,x]
+Jetty.prototype.moveTo = function moveTo(coords) { return this.command("H", [coords[0]+1, coords[1]+1]); };
 
 Jetty.prototype.clear = function clear() { return this.command("J", [2]); };
 
 Jetty.prototype.hideCursor = function hideCursor() { return this.command("?25l"); };
-Jetty.prototype.showCursor = function hideCursor() { return this.command("?25h"); };
+Jetty.prototype.showCursor = function showCursor() { return this.command("?25h"); };
