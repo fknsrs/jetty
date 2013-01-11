@@ -41,3 +41,7 @@ codes.map(function(code) {
     return this.seq(code.code, code.map ? n.map(code.map) : n);
   };
 });
+
+Jetty.prototype.rgb = function rgb(r, g, b, bg) {
+  return this.colour([bg ? 48 : 38, 5, 16 + r * 36 + g * 6 + b]);
+};
