@@ -31,7 +31,8 @@ codes = [
   {name: "save",        code:"S"},
   {name: "restore",     code:"U"},
   {name: "hide",        code:"?25l"},
-  {name: "show",        code:"?25h"}
+  {name: "show",        code:"?25h"},
+  {name: "colour",      code:"m"},
 ];
 
 codes.map(function(code) {

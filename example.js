@@ -14,5 +14,5 @@ setInterval(function() {
   var x = Math.round(Math.cos(i) * 25 + 50),
       y = Math.round(Math.sin(i) * 10 + 20);
 
-  jetty.moveTo(x, y).write(".");
+  jetty.colour([Math.round(Math.cos(i / 10) * 3 + 3) + 31]).moveTo([y,x]).write(".");
 }, 5);
