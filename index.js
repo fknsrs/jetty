@@ -3,8 +3,13 @@ var Steez = require("steez"),
 
 var csi = Buffer([0x1b, 0x5b]);
 
-var Jetty = module.exports = function Jetty() {
+var Jetty = module.exports = function Jetty(stream) {
   Steez.call(this);
+  
+  // pipe if stream is provided
+  if (stream) {
+    this.pipe(stream);
+  }
 };
 util.inherits(Jetty, Steez);
 
@@ -15,6 +20,11 @@ Jetty.prototype.seq = function(char, args) {
   }
   this.write(char);
 
+  return this;
+};
+
+Jetty.prototype.text = function(str) {
+  this.write(str);
   return this;
 };
 
@@ -32,7 +42,7 @@ codes = [
   {name: "restore",     code:"U"},
   {name: "hide",        code:"?25l"},
   {name: "show",        code:"?25h"},
-  {name: "colour",      code:"m"},
+  {name: "sgr",         code:"m"},
 ];
 
 codes.map(function(code) {
@@ -42,14 +52,55 @@ codes.map(function(code) {
   };
 });
 
+var sgrCodes = [
+  {name: "reset",                   code: 0 },
+  {name: "bold",                    code: 1 },
+  {name: "faint",                   code: 2 },
+  {name: "italic",                  code: 3 },
+  {name: "underline",               code: 4 },
+  {name: "blink",                   code: 5 },
+  {name: "blinkRapid",              code: 6 },
+  {name: "imageNegative",           code: 7 },
+  {name: "conceal",                 code: 8 },
+  {name: "strikeout",               code: 9 },
+  {name: "font",                    code: function(n) { return [10 + (Number(n)||0)];   }},
+  {name: "boldOff",                 code: 21},
+  {name: "normal",                  code: 22},
+  {name: "italicOff",               code: 23},
+  {name: "underlineOff",            code: 24},
+  {name: "blinkOff",                code: 25},
+  {name: "imagePositive",           code: 27},
+  {name: "reveal",                  code: 28},
+  {name: "strikeoutOff",            code: 29},
+  {name: "legacyColour",            code: function(n)   { return [30 + (Number(n)||0)]; }},
+  {name: "colour",                  code: function(dec) { return [38, 5, dec];          }},
+  {name: "defaultColour",           code: 39},
+  {name: "legacyBackgroundColour",  code: function(n)   { return [40 + (Number(n)||0)]; }},
+  {name: "backgroundColour",        code: function(dec) { return [48, 5, dec];          }},
+  {name: "defaultBackgroundColour", code: 49},
+  {name: "frame",                   code: 51},
+  {name: "encircle",                code: 52},
+  {name: "overline",                code: 53},
+  {name: "frameOff",                code: 54},
+  {name: "overlineOff",             code: 55}
+];
+
+sgrCodes.map(function(code) {
+  Jetty.prototype[code.name] = function(n) {
+    return this.sgr(
+      typeof code.code === 'function'
+        ? code.code(n)
+        : [code.code]
+    );
+  }
+});
+
 Jetty.prototype.rgb = function(channels, isBg) {
-  return this.colour([
-    isBg ? 48 : 38,               // background colour?
-    5,                            // because reasons
+  return this[isBg ? 'colour' : 'backgroundColour'](
     util.isArray(channels)        // colour value
       ? this._rgb2dec(channels)     // [r,g,b] => dec
       : channels                    // dec
-  ]);
+  );
 };
 
 // private methods

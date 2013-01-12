@@ -2,8 +2,7 @@
 
 var Jetty = require("./index");
 
-var jetty = new Jetty();
-jetty.pipe(process.stdout);
+var jetty = new Jetty(process.stdout);
 
 jetty.clear().hide();
 
@@ -12,7 +11,7 @@ setInterval(function() {
   i += 0.025;
 
   var x = Math.round(Math.cos(i) * 25 + 50),
-      y = Math.round(Math.sin(i) * 10 + 20);
+      y = Math.round(Math.sin(i) * 13 + 20);
 
   jetty.rgb(
     Math.round(Math.random() * 215),
