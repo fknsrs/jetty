@@ -42,6 +42,26 @@ codes.map(function(code) {
   };
 });
 
-Jetty.prototype.rgb = function rgb(r, g, b, bg) {
-  return this.colour([bg ? 48 : 38, 5, 16 + r * 36 + g * 6 + b]);
+Jetty.prototype.rgb = function(channels, isBg) {
+  return this.colour([
+    isBg ? 48 : 38,               // background colour?
+    5,                            // because reasons
+    util.isArray(channels)        // colour value
+      ? this._rgb2dec(channels)     // [r,g,b] => dec
+      : channels                    // dec
+  ]);
+};
+
+// private methods
+// these methods do not return the Jetty object
+Jetty.prototype._rgb2dec = function(channels) {
+  return channels.reverse.reduce(function(dec, value, bit) {
+    return dec = value * Math.pow(6, bit);
+  }, 16);
+};
+
+Jetty.prototype._dec2rgb = function(dec) {
+  return dec.toString(6).split('').map(function(value) {
+    return parseInt(value);
+  });
 };
