@@ -41,12 +41,12 @@ for (var r=0; r<6; ++r) {
 
 // all the grays
 for (var k=232; k<256; k++) {
-  renderGrayPalette(50, k);
+  renderGrayPalette(48, k);
 }
 
 // all the system colors
 for (var k=0; k<16; k++) {
-  renderSystemPalette(54, k);
+  renderSystemPalette(51, k);
 }
 
-tty.moveTo([60,0]).reset();
+tty.moveTo([53,0]).reset();
