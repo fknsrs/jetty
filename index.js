@@ -112,7 +112,7 @@ Jetty.prototype._rgb2dec = function(channels) {
 };
 
 Jetty.prototype._dec2rgb = function(dec) {
-  return dec.toString(6).split('').map(function(value) {
+  return ("000" + dec.toString(6)).substr(-3, 3).split('').map(function(value) {
     return parseInt(value);
   });
 };
