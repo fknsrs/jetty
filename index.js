@@ -23,8 +23,8 @@ Jetty.prototype.seq = function(char, args) {
   return this;
 };
 
-Jetty.prototype.text = function(str) {
-  this.write(str);
+Jetty.prototype.text = function(str, styleFn) {
+  styleFn ? styleFn.call(this, str) : this.write(str);
   return this;
 };
 

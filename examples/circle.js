@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 
 var Jetty = require("./index");
-
 var jetty = new Jetty(process.stdout);
-
 jetty.clear().hide();
 
 var i = 0;
