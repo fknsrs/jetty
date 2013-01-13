@@ -19,11 +19,11 @@ var renderSystemPalette = function(yOffset, dec) {
 };
 
 var renderSwatch = function(coords, channels, label, isBlack) {
+  tty.rgb(channels, 1);
+
   // swatch
-  for (var _x=0; _x<4; _x++) {
-    for (var _y=0; _y<2; _y++) {
-      tty.moveTo([coords[0]+_y, coords[1]+_x]).rgb(channels,1).text(' ');
-    }
+  for (var _y=0; _y<2; _y++) {
+    tty.moveTo([coords[0]+_y, coords[1]]).text('    ');
   }
 
   // label
