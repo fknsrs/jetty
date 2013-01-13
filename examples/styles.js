@@ -4,9 +4,9 @@ tty.reset().clear().moveTo([0,0]);
 
 // user defined things
 var colors = {
-  white: 231,   //=> [5,5,5]
-  blue:  21,    //=> [0,0,5]
-  red:   196    //=> [5,0,0]
+  white: [5,5,5],
+  blue:  [0,0,5],
+  red:   [5,0,0]
 };
 
 var styles = {
