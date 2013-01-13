@@ -96,7 +96,7 @@ sgrCodes.map(function(code) {
 });
 
 Jetty.prototype.rgb = function(channels, isBg) {
-  return this[isBg ? 'colour' : 'backgroundColour'](
+  return this[isBg ? 'backgroundColour' : 'colour'](
     util.isArray(channels)        // colour value
       ? this._rgb2dec(channels)     // [r,g,b] => dec
       : channels                    // dec
