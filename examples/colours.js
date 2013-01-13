@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var Jetty = require('../index.js');
 var tty = new Jetty(process.stdout);
 tty.reset().clear();
