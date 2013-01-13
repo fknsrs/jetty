@@ -106,8 +106,8 @@ Jetty.prototype.rgb = function(channels, isBg) {
 // private methods
 // these methods do not return the Jetty object
 Jetty.prototype._rgb2dec = function(channels) {
-  return channels.reverse.reduce(function(dec, value, bit) {
-    return dec = value * Math.pow(6, bit);
+  return channels.reverse().reduce(function(dec, value, bit) {
+    return dec + value * Math.pow(6, bit);
   }, 16);
 };
 
