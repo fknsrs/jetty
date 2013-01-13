@@ -1,18 +1,29 @@
 var Jetty = require('./index.js');
 var tty = new Jetty(process.stdout);
+tty.reset().clear();
 
-var clamp = function(n, limit) {
-  return n >= limit ? 0 : n;
-};
+var renderSwatch = function(r,g,b) {
+  
+  // pos
+  var x = r*8+b*2;
+  var y = g*8+b;
+  
+  // swatch
+  for (var _x=0; _x<4; _x++) {
+    for (var _y=0; _y<2; _y++) {
+      tty.moveTo([y+_y, x+_x]).rgb([r,g,b],1).text(' ');
+    }
+  }
 
-var fg = 0;
-var bg = 113;
-
-for (var _i=0; _i<216; _i++) {
-  fg = clamp(fg, 216);
-  bg = clamp(bg, 216);
-  tty.text(fg+16 + ' ').rgb(fg).rgb(bg,1).text("#" + (fg+16).toString(6)).reset().text("\n");
-  fg += 1;
-  bg += 1;
+  // label
+  tty.moveTo([y,x]).text('#'+r+g+b);
 }
 
+// all the colors!
+for (var r=0; r<6; ++r) {
+  for (var g=0; g<6; ++g) {
+    for (var b=0; b<6; ++b) {
+      renderSwatch(r,g,b);
+    }
+  }
+}
