@@ -1,17 +1,23 @@
-var Steez = require("steez"),
+var Stream = require("stream").Stream,
     util = require("util");
 
 var csi = Buffer([0x1b, 0x5b]);
 
 var Jetty = module.exports = function Jetty(stream) {
-  Steez.call(this);
-  
+  Stream.call(this);
+  this.writable = true;
+  this.readable = true;
   // pipe if stream is provided
   if (stream) {
     this.pipe(stream);
   }
 };
-util.inherits(Jetty, Steez);
+util.inherits(Jetty, Stream);
+
+Jetty.prototype.write = function(data) {
+  this.emit('data', data);
+  return !this.paused && this.writable;
+};
 
 Jetty.prototype.seq = function(char, args) {
   this.write(csi);
@@ -26,6 +32,10 @@ Jetty.prototype.seq = function(char, args) {
 Jetty.prototype.text = function(str, styleFn) {
   styleFn ? styleFn.call(this, str) : this.write(str);
   return this;
+};
+
+Jetty.prototype.erase = function(n) {
+  return this.text((new Array(n+1).join(' ')));
 };
 
 codes = [

@@ -4,7 +4,6 @@
   "description": "TTY, you so fly",
   "main": "index.js",
   "dependencies": {
-    "steez": "~0.4.2"
   },
   "repository": {
     "type": "git",
