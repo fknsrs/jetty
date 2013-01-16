@@ -34,8 +34,8 @@ Jetty.prototype.text = function(str, styleFn) {
   return this;
 };
 
-Jetty.prototype.erase = function(n) {
-  return this.text((new Array(n+1).join(' ')));
+Jetty.prototype.erase = function(n, styleFn) {
+  return this.text(new Array(n+1).join(' '), styleFn);
 };
 
 codes = [
