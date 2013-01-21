@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "description": "TTY, you so fly",
   "main": "index.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git://github.com/fknsrs/jetty.git"

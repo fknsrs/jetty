@@ -1,6 +1,6 @@
-var Stream = require("stream").Stream,
-    util = require("util");
-
+var util    = require("util");
+var Stream  = require("stream").Stream;
+    
 var csi = Buffer([0x1b, 0x5b]);
 
 var Jetty = module.exports = function Jetty(stream) {
@@ -111,6 +111,10 @@ Jetty.prototype.rgb = function(channels, isBg) {
       ? this._rgb2dec(channels)     // [r,g,b] => dec
       : channels                    // dec
   );
+};
+
+Jetty.prototype.nuke = function nuke() {
+  return this.hide().clear().moveTo([0,0]);
 };
 
 // private methods
