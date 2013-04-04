@@ -4,6 +4,9 @@
   "description": "TTY, you so fly",
   "main": "index.js",
   "dependencies": {},
+  "engines": {
+    "node": "~0.10.0"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/fknsrs/jetty.git"
