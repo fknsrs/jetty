@@ -1,36 +1,32 @@
-var util    = require("util");
-var Stream  = require("stream").Stream;
-    
+var stream  = require("stream"),
+    util    = require("util");
+
 var csi = Buffer([0x1b, 0x5b]);
 
-var Jetty = module.exports = function Jetty(stream) {
-  Stream.call(this);
-  this.writable = true;
-  this.readable = true;
+var Jetty = module.exports = function Jetty(outputStream) {
+  stream.Readable.call(this);
+
   // pipe if stream is provided
-  if (stream) {
-    this.pipe(stream);
+  if (outputStream) {
+    this.pipe(outputStream);
   }
 };
-util.inherits(Jetty, Stream);
+util.inherits(Jetty, stream.Readable);
 
-Jetty.prototype.write = function(data) {
-  this.emit('data', data);
-  return !this.paused && this.writable;
-};
+Jetty.prototype._read = function _read(n) {};
 
 Jetty.prototype.seq = function(char, args) {
-  this.write(csi);
+  this.push(csi);
   if (args && args.length) {
-    this.write(args.join(";"));
+    this.push(args.join(";"));
   }
-  this.write(char);
+  this.push(char);
 
   return this;
 };
 
 Jetty.prototype.text = function(str, styleFn) {
-  styleFn ? styleFn.call(this, str) : this.write(str);
+  styleFn ? styleFn.call(this, str) : this.push(str);
   return this;
 };
 
