@@ -14,5 +14,5 @@ setInterval(function() {
   jetty.rgb(
     Math.round(Math.random() * 215),
     Math.random() > 0.5
-  ).moveTo([y,x]).write(".");
+  ).moveTo([y,x]).text(".");
 }, 5);
