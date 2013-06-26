@@ -25,7 +25,7 @@ Or via git:
 Usage
 -----
 
-```
+```js
 // Yeah, Jetty!
 var Jetty = require("jetty");
 
