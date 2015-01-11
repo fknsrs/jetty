@@ -34,18 +34,22 @@ Jetty.prototype.erase = function(n, styleFn) {
   return this.text(new Array(n+1).join(' '), styleFn);
 };
 
-codes = [
+var codes = [
   {name: "moveUp",      code:"A"},
   {name: "moveDown",    code:"B"},
-  {name: "moveLeft",    code:"C"},
-  {name: "moveRight",   code:"D"},
-  {name: "lineUp",      code:"E"},
-  {name: "lineDown",    code:"F"},
+  {name: "moveRight",   code:"C"},
+  {name: "moveLeft",    code:"D"},
+  {name: "lineDown",    code:"E"},
+  {name: "lineUp",      code:"F"},
+  {name: "column",      code:"G"},
   {name: "moveTo",      code:"H",   map: function(e) { return e +  1; }},
-  {name: "clear",       code:"J",   map: function(e) { return e || 2; }},
-  {name: "clearLine",   code:"K",   map: function(e) { return e || 1; }},
-  {name: "save",        code:"S"},
-  {name: "restore",     code:"U"},
+  {name: "clear",       code:"J",   map: function(e) { return e == null ? 2 : e; }},
+  {name: "clearLine",   code:"K",   map: function(e) { return e == null ? 1 : e; }},
+  {name: "scrollDown",  code:"S"},
+  {name: "scrollUp",    code:"T"},
+  {name: "getCursor",   code:"n",   map: function(e) { return 6 } },
+  {name: "save",        code:"s"},
+  {name: "restore",     code:"u"},
   {name: "hide",        code:"?25l"},
   {name: "show",        code:"?25h"},
   {name: "sgr",         code:"m"},
