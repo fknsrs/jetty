@@ -34,7 +34,7 @@ Jetty.prototype.erase = function(n, styleFn) {
   return this.text(new Array(n+1).join(' '), styleFn);
 };
 
-codes = [
+var codes = [
   {name: "moveUp",      code:"A"},
   {name: "moveDown",    code:"B"},
   {name: "moveRight",   code:"C"},
@@ -45,8 +45,9 @@ codes = [
   {name: "moveTo",      code:"H",   map: function(e) { return e +  1; }},
   {name: "clear",       code:"J",   map: function(e) { return e == null ? 2 : e; }},
   {name: "clearLine",   code:"K",   map: function(e) { return e == null ? 1 : e; }},
-  {name: "scrollUp",    code:"S"},
-  {name: "scrollDown",  code:"T"},
+  {name: "scrollDown",  code:"S"},
+  {name: "scrollUp",    code:"T"},
+  {name: "getCursor",   code:"n",   map: function(e) { return 6 } },
   {name: "save",        code:"s"},
   {name: "restore",     code:"u"},
   {name: "hide",        code:"?25l"},
