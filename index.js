@@ -37,8 +37,8 @@ Jetty.prototype.erase = function(n, styleFn) {
 codes = [
   {name: "moveUp",      code:"A"},
   {name: "moveDown",    code:"B"},
-  {name: "moveLeft",    code:"C"},
-  {name: "moveRight",   code:"D"},
+  {name: "moveRight",   code:"C"},
+  {name: "moveLeft",    code:"D"},
   {name: "lineUp",      code:"E"},
   {name: "lineDown",    code:"F"},
   {name: "moveTo",      code:"H",   map: function(e) { return e +  1; }},
